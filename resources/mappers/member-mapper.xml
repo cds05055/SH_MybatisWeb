@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+	<resultMap type="com.kh.member.model.vo.Member" id="memberResultMap">
+		<id property="memberId" column="MEMBER_ID"/>
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberName" column="MEMBER_NAME" />
+		<result property="memberAge" column="MEMBER_AGE" />
+		<result property="memberGender" column="MEMBER_GENDER" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberPhone" column="MEMBER_PHONE" />
+		<result property="memberAddress" column="MEMBER_ADDRESS" />
+		<result property="memberHobby" column="MEMBER_HOBBY" />
+		<result property="memberDate" column="MEMBER_DATE" />
+		<result property="updateDate" column="UPDATE_DATE" />
+		<result property="memberYN" column="MEMBER_YN" />
+	</resultMap>
+	
+<!-- 	 parameterType="com.kh.member.model.vo.Member" 생략가능 -->
+	<insert id="insertMember">
+		INSERT INTO MEMBER_TBL 
+		VALUES(#{memberId},#{memberPw},#{memberName},#{memberAge},#{memberGender},#{memberEmail},#{memberPhone},#{memberAddress},#{memberHobby},DEFAULT,DEFAULT,DEFAULT)
+	</insert>
+	
+	<update id="updateMember">
+		UPDATE MEMBER_TBL 
+		SET MEMBER_PW = #{memberPw}, MEMBER_EMAIL = #{memberEmail}, MEMBER_PHONE = #{memberPhone}, MEMBER_ADDRESS = #{memberAddress}, MEMBER_HOBBY = #{memberHobby} WHERE MEMBER_ID = #{memberId}
+	</update>
+	
+	<delete id="deleteMember">
+<!-- 		한 개의 값만 입력할 땐 value를 적어도 됨 -->
+		DELETE FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId}
+	</delete>
+	
+<!-- 	컬럼명과 필드명이 같을때 사용, resultType="com.kh.member.model.vo.Member" -->
+	<select id="selectCheckLogin" resultMap="memberResultMap">
+		SELECT * FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND MEMBER_PW = #{memberPw}
+	</select>
+	
+	<select id="selectOneById" resultMap="memberResultMap">
+		SELECT * FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
